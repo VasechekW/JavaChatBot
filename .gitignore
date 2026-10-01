@@ -1,0 +1,29 @@
+# Скомпилированные классы
+*.class
+out/
+build/
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Логи
+*.log
