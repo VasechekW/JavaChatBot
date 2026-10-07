@@ -1,10 +1,16 @@
 package main.java.chatbot.core;
 
+import main.java.chatbot.core.command.BotCommand;
+
 public class ChatBot {
+
     private final DataBaseBot dataBaseBot;
+    private final BotContext context;
 
     public ChatBot(DataBaseBot dataBaseBot){
+
         this.dataBaseBot = dataBaseBot;
+        this.context = new BotContext();
     }
 
     public String getGreeting(){
@@ -13,8 +19,17 @@ public class ChatBot {
     }
 
     public String questionInput(String input){
-        String inputTrim = input.trim();
+        String question = input.trim().toLowerCase();
 
-        return dataBaseBot.getAnswer(inputTrim);
+        if (question.isEmpty()) {
+            return "Вы ничего не ввели, попробуйте ещё раз.";
+        }
+
+        BotCommand command = dataBaseBot.findCommand(question);
+        if (command == null) {
+            return "Я не знаю ответа на этот вопрос.";
+        }
+
+        return command.execute(context, "");
     }
 }

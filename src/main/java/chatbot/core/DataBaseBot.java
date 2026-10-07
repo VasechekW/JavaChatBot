@@ -14,7 +14,7 @@ public class DataBaseBot {
     public DataBaseBot(){
         commands.put("помощь", new HelpCommand(this));
         commands.put("привет", new TextCommand("Привет! Чем могу помочь?"));
-        commands.put("как дела", new TextCommand("Отлично, спасибо! А у тебя?)");
+        commands.put("как дела", new TextCommand("Отлично, спасибо! А у тебя?)"));
         commands.put("кто ты", new TextCommand("Я простой чат-бот на Java."));
         commands.put("пока", new TextCommand("До встречи!"));
 
