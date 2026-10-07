@@ -1,23 +1,27 @@
 package main.java.chatbot.core;
 
+import main.java.chatbot.core.command.BotCommand;
+import main.java.chatbot.core.command.TextCommand;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class DataBaseBot {
 
-    private final Map<String, String> knowledge = new HashMap<>();
+    private final Map<String, BotCommand> commands = new HashMap<>();
 
     public DataBaseBot(){
-        knowledge.put("привет", "Привет! Чем могу помочь?");
-        knowledge.put("как дела", "Отлично, спасибо! А у тебя?");
-        knowledge.put("кто ты", "Я простой чат-бот на Java.");
-        knowledge.put("пока", "До встречи!");
-        knowledge.put("помощь", "Можешь спросить: привет, как дела, кто ты, пока, " +
-                "а так же команда \"операции с матрицами\".");
+        commands.put("привет", new TextCommand("Привет! Чем могу помочь?"));
+        commands.put("как дела", new TextCommand("Отлично, спасибо! А у тебя?)");
+        commands.put("кто ты", new TextCommand("Я простой чат-бот на Java."));
+        commands.put("пока", new TextCommand("До встречи!"));
+
     }
 
-    public String getAnswer(String question){
-        return knowledge.getOrDefault(question.toLowerCase(), "Я не знаю ответа на этот вопрос./n");
+    public BotCommand findCommand(String question) {
+        if (question == null || question.isEmpty()) {
+            return null;
+        }
+        return commands.get(question.toLowerCase());
     }
+
 }
