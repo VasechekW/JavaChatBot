@@ -1,4 +1,4 @@
-package main.java.chatbot.ui;
+package chatbot.ui;
 
 import main.java.chatbot.core.ChatBot;
 import main.java.chatbot.core.DataBaseBot;
