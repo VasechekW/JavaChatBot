@@ -5,11 +5,13 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class HttpResponseJson {
 
+    private static final Dotenv DOTENV = Dotenv.load();
+    private static final String TOKEN = DOTENV.get("TRAVELPAYOUTS_TOKEN");
 
-    private static final String TOKEN = System.getenv("TRAVELPAYOUTS_TOKEN");
 
     public static String getCheapTickets(String origin, String destination, String date) {
         String url = "https://api.travelpayouts.com/v1/prices/cheap"

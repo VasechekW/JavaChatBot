@@ -13,7 +13,7 @@ public class DataBaseBot {
     private final Map<String, BotCommand> commands = new HashMap<>();
 
     public DataBaseBot(){
-        commands.put("авиабилеты из Екатеринбурга на завтра", new AviaTicketsCommand());
+        commands.put("авиабилеты", new AviaTicketsCommand());
         commands.put("помощь", new HelpCommand(this));
         commands.put("привет", new TextCommand("Привет! Чем могу помочь?"));
         commands.put("как дела", new TextCommand("Отлично, спасибо! А у тебя?)"));
