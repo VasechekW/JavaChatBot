@@ -8,8 +8,8 @@ import java.time.Duration;
 
 public class HttpResponseJson {
 
-    // Замените на ваш реальный токен — лучше через переменную окружения
-    private static final String TOKEN = "ваш-токен-aviasales";
+
+    private static final String TOKEN = System.getenv("TRAVELPAYOUTS_TOKEN");
 
     public static String getCheapTickets(String origin, String destination, String date) {
         String url = "https://api.travelpayouts.com/v1/prices/cheap"

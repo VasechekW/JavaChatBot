@@ -1,10 +1,10 @@
 package chatbot.core.AviasalesTickets;
 
 public class ParsedTicket {
-    private final String originCode;       // SVX — из запроса
-    private final String originName;       // Екатеринбург — из словаря
-    private final String destinationCode;  // MOW — ключ в data
-    private final String destinationName;  // Москва — из словаря
+    private final String originCode;
+    private final String originName;
+    private final String destinationCode;
+    private final String destinationName;
     private final TicketInfo info;         // цена, время, авиакомпания
 
     public ParsedTicket(String originCode, String originName,
@@ -25,7 +25,7 @@ public class ParsedTicket {
 
     @Override
     public String toString() {
-        return String.format("%s (%s) → %s (%s): %d₽, вылет %s, авиакомпания %s",
+        return String.format("%s (%s) -> %s (%s): %d₽, вылет %s, ав-ия %s",
                 originName, originCode,
                 destinationName, destinationCode,
                 info.getPrice(),
