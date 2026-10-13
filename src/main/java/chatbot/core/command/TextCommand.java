@@ -1,5 +1,5 @@
-package main.java.chatbot.core.command;
-import main.java.chatbot.core.BotContext;
+package chatbot.core.command;
+import chatbot.core.BotContext;
 
 public class TextCommand implements BotCommand{
 
