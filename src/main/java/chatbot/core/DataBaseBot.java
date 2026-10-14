@@ -1,8 +1,8 @@
-package main.java.chatbot.core;
+package chatbot.core;
 
-import main.java.chatbot.core.command.BotCommand;
-import main.java.chatbot.core.command.TextCommand;
-import main.java.chatbot.core.command.HelpCommand;
+import chatbot.core.command.BotCommand;
+import chatbot.core.command.TextCommand;
+import chatbot.core.command.HelpCommand;
 
 import java.util.HashMap;
 import java.util.Map;
