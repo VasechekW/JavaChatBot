@@ -1,7 +1,7 @@
 package chatbot.ui;
 
-import main.java.chatbot.core.ChatBot;
-import main.java.chatbot.core.DataBaseBot;
+import chatbot.core.ChatBot;
+import chatbot.core.DataBaseBot;
 
 import java.util.Scanner;
 
