@@ -1,5 +1,4 @@
 package chatbot.core.command;
-
 import chatbot.core.BotContext;
 
 public class TextCommand implements BotCommand{

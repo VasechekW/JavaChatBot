@@ -1,5 +1,6 @@
-package chatbot.core;
+package main.java.chatbot.core;
 
+import chatbot.core.command.AviaTicketsCommand;
 import chatbot.core.command.BotCommand;
 import chatbot.core.command.TextCommand;
 import chatbot.core.command.HelpCommand;
@@ -12,6 +13,7 @@ public class DataBaseBot {
     private final Map<String, BotCommand> commands = new HashMap<>();
 
     public DataBaseBot(){
+        commands.put("авиабилеты", new AviaTicketsCommand());
         commands.put("помощь", new HelpCommand(this));
         commands.put("привет", new TextCommand("Привет! Чем могу помочь?"));
         commands.put("как дела", new TextCommand("Отлично, спасибо! А у тебя?)"));
