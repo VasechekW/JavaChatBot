@@ -1,4 +1,4 @@
-package main.java.chatbot.core;
+package chatbot.core;
 
 import chatbot.core.command.AviaTicketsCommand;
 import chatbot.core.command.BotCommand;
