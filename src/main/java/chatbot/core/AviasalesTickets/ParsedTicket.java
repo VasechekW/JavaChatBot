@@ -5,7 +5,7 @@ public class ParsedTicket {
     private final String originName;
     private final String destinationCode;
     private final String destinationName;
-    private final TicketInfo info;         // цена, время, авиакомпания
+    private final TicketInfo info;        // цена, время, авиакомпания
 
     public ParsedTicket(String originCode, String originName,
                         String destinationCode, String destinationName,

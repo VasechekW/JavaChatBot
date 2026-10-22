@@ -15,7 +15,7 @@ public class AviaTicketsCommand implements BotCommand {
 
 
     @Override
-    public String execute(BotContext context, String argument) {     // ← ВОТ ГРАНИЦА МЕТОДА
+    public String execute(BotContext context, String argument) {
 
         String tomorrow = LocalDate.now().plusDays(1).toString();
         String origin = "SVX";

@@ -6,6 +6,7 @@ public class CityDict {
     public static final Map<String, String> CITIES = Map.<String, String>ofEntries(
 
             // --- Россия ---
+            Map.entry("SVX", "Екатеринбург"),
             Map.entry("UFA", "Уфа"),
             Map.entry("MOW", "Москва"),
             Map.entry("LED", "Санкт-Петербург"),
