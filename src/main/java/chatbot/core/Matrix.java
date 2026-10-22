@@ -1,4 +1,4 @@
-package main.java.chatbot.core;
+package chatbot.core;
 
 public class Matrix {
     private final double[][] matrix;

@@ -1,6 +1,6 @@
-package main.java.chatbot.core;
+package chatbot.core;
 
-import main.java.chatbot.core.command.BotCommand;
+import chatbot.core.command.BotCommand;
 
 public class ChatBot {
 

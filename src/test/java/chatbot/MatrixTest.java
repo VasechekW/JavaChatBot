@@ -1,6 +1,6 @@
 package chatbot;
 
-import main.java.chatbot.core.Matrix;
+import chatbot.core.Matrix;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
