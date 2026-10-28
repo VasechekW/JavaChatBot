@@ -5,23 +5,22 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
+
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class HttpResponseJson {
+public class TicketsApi {
 
-    private static final Dotenv DOTENV = Dotenv.load();
-    private static final String TOKEN = DOTENV.get("TRAVELPAYOUTS_TOKEN");
+    private final Dotenv DOTENV = Dotenv.load();
+    private final String TOKEN = DOTENV.get("TRAVELPAYOUTS_TOKEN");
+    private final HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
 
 
-    public static String getCheapTickets(String origin, String destination, String date) {
+    public List<Ticket> getCheapTickets(String origin, String destination, String date) {
         String url = "https://api.travelpayouts.com/v1/prices/cheap"
                 + "?origin=" + origin
                 + "&destination=" + destination
                 + "&depart_date=" + date;
-
-        HttpClient client = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(10))
-                .build();
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -35,7 +34,8 @@ public class HttpResponseJson {
                     request,
                     HttpResponse.BodyHandlers.ofString()
             );
-            return response.body();
+            String json = response.body();
+            return TicketParser.parse(json, origin);
         } catch (Exception e) {
             throw new RuntimeException("Ошибка при запросе к Aviasales API", e);
         }
