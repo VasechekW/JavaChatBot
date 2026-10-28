@@ -13,8 +13,8 @@ public class TicketParser {
 
     private static final Gson GSON = new Gson();
 
-    public static List<ParsedTicket> parse(String json, String originCode) {
-        List<ParsedTicket> result = new ArrayList<>();
+    public static List<Ticket> parse(String json, String originCode) {
+        List<Ticket> result = new ArrayList<>();
 
 
         JsonObject root = JsonParser.parseString(json).getAsJsonObject();
@@ -44,11 +44,11 @@ public class TicketParser {
                 TicketInfo info = GSON.fromJson(ticketJson, TicketInfo.class);
 
 
-                ParsedTicket ticket = new ParsedTicket(
+                Ticket ticket = new Ticket(
                         originCode,
-                        CityDict.name(originCode),
+                        Airport.getCityOrDefault(originCode),
                         destinationCode,
-                        CityDict.name(destinationCode),
+                        Airport.getCityOrDefault(destinationCode),
                         info
                 );
                 result.add(ticket);
