@@ -1,6 +1,6 @@
-package main.java.chatbot.core.command;
-import main.java.chatbot.core.BotContext;
-import main.java.chatbot.core.DataBaseBot;
+package chatbot.core.command;
+import chatbot.core.BotContext;
+import chatbot.core.DataBaseBot;
 
 public class HelpCommand implements BotCommand{
 
