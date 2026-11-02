@@ -16,10 +16,11 @@ public class TicketsApi {
     private final HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
 
 
-    public List<Ticket> getCheapTickets(String origin, String destination, String date) {
+    public List<Ticket> getCheapTickets(Airport origin, String destinationCode, String date) {
+        String originCode = origin.name();
         String url = "https://api.travelpayouts.com/v1/prices/cheap"
-                + "?origin=" + origin
-                + "&destination=" + destination
+                + "?origin=" + originCode
+                + "&destination=" + destinationCode
                 + "&depart_date=" + date;
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -35,7 +36,7 @@ public class TicketsApi {
                     HttpResponse.BodyHandlers.ofString()
             );
             String json = response.body();
-            return TicketParser.parse(json, origin);
+            return TicketParser.parse(json, originCode);
         } catch (Exception e) {
             throw new RuntimeException("Ошибка при запросе к Aviasales API", e);
         }

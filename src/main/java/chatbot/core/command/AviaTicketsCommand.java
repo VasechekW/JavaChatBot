@@ -17,7 +17,7 @@ public class AviaTicketsCommand implements BotCommand {
     public String execute(BotContext context, String argument) {
 
         String tomorrow = LocalDate.now().plusDays(1).toString();
-        String origin = "SVX";
+        Airport origin = Airport.SVX;
 
         List<Ticket> tickets = ticketsApi.getCheapTickets(origin, "-", tomorrow);
 
@@ -28,7 +28,7 @@ public class AviaTicketsCommand implements BotCommand {
         tickets.sort(Comparator.comparingInt(t -> t.info().price()));
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Билеты из ").append(Airport.valueOf(origin).getCity())
+        sb.append("Билеты из ").append(origin.getCity())
                 .append(" на ").append(tomorrow).append(":\n\n");
 
 
