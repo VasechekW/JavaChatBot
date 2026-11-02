@@ -1,6 +1,6 @@
-package main.java.chatbot.core.command;
+package chatbot.core.command;
 
-import main.java.chatbot.core.BotContext;
+import chatbot.core.BotContext;
 
 public interface BotCommand {
     String execute(BotContext context, String argument);

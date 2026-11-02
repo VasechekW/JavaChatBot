@@ -11,6 +11,9 @@ lib/
 .idea/
 *.iml
 
+.env
+dependency-reduced-pom.xml
+
 # Eclipse
 .classpath
 .project
@@ -32,3 +35,4 @@ Thumbs.db
 *.log
 
 .jar
+.env
