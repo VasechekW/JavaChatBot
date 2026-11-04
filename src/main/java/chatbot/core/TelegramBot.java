@@ -17,7 +17,6 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void sendMessage(long chatId, String text) {
         SendMessage message = SendMessage.builder().chatId(String.valueOf(chatId)).text(text).build();
-
         try {
             execute(message);
         } catch (TelegramApiException e) {
@@ -34,12 +33,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         String userMessage = update.getMessage().getText();
         long chatId = update.getMessage().getChatId();
 
+
+        long userId = update.getMessage().getFrom().getId();
+
         if (userMessage.equals("/start")) {
             sendMessage(chatId, chatBot.getGreeting());
             return;
         }
 
-        String botResponse = chatBot.questionInput(userMessage);
+
+        String botResponse = chatBot.questionInput(userId, userMessage);
         sendMessage(chatId, botResponse);
     }
 

@@ -29,6 +29,10 @@ public class DataBaseBot {
         return commands.get(question.toLowerCase());
     }
 
+    public java.util.Collection<BotCommand> getAllCommands() {
+        return commands.values();
+    }
+
     public java.util.Set<String> listQuestions() {
         return commands.keySet();
     }
