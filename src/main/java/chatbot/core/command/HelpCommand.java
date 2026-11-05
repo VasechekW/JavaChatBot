@@ -1,8 +1,9 @@
 package chatbot.core.command;
+
 import chatbot.core.BotContext;
 import chatbot.core.DataBaseBot;
 
-public class HelpCommand implements BotCommand{
+public class HelpCommand implements BotCommand {
 
     private final DataBaseBot dataBaseBot;
 
@@ -11,7 +12,7 @@ public class HelpCommand implements BotCommand{
     }
 
     @Override
-    public String execute(BotContext context, String argument) {
+    public String execute(BotContext context, long userId, String argument) {
         return "Доступные команды: " + String.join(", ", dataBaseBot.listQuestions());
     }
 }
