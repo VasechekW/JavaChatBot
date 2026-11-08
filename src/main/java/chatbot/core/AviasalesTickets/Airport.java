@@ -199,4 +199,19 @@ public enum Airport {
             return code;
         }
     }
+
+    public static Airport fromString(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return null;
+        }
+
+        String cleanInput = input.trim().toUpperCase();
+
+        for (Airport airport : values()) {
+            if (airport.name().equals(cleanInput) || airport.getCity().toUpperCase().equals(cleanInput)) {
+                return airport;
+            }
+        }
+        return null;
+    }
 }
