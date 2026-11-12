@@ -1,6 +1,8 @@
 package chatbot.core;
 
 import chatbot.core.command.BotCommand;
+import org.bson.Document;
+import java.util.Date;
 
 public class ChatBot {
 
@@ -12,11 +14,39 @@ public class ChatBot {
         this.context = new BotContext();
     }
 
+    public String processGreeting() {
+        return processGreeting(1L, null, null); // Передаем тестовый ID
+    }
+
+    public String processMessage(String input) {
+        return processMessage(1L, null, null, input); // Передаем тестовый ID
+    }
+
+    public String processMessage(long userId, String username, String firstname, String input){
+        String state = context.getState(userId).toString();
+        String res = questionInput(userId, input);
+
+        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
+                .append("input", input).append("response", res).append("state", state).append("time", new Date());
+        MongoDB.saveLog(logDoc);
+
+        return res;
+    }
+
+    public String processGreeting(long userId, String username, String firstname){
+        String greet = getGreeting();
+
+        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
+                .append("input", "/start").append("response", greet).append("state", "IDLE").append("time", new Date());
+        MongoDB.saveLog(logDoc);
+
+        return greet;
+    }
+
     public String getGreeting(){
         return "=== Чат-бот запущен ===\n" +
                 "Напишите 'помощь' для списка команд или 'выход' для завершения.\n";
     }
-
 
     public String questionInput(String input){
         return questionInput(1L, input); // Используем тестовый ID 1

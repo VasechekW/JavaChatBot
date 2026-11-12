@@ -30,19 +30,18 @@ public class TelegramBot extends TelegramLongPollingBot {
             return;
         }
 
-        String userMessage = update.getMessage().getText();
         long chatId = update.getMessage().getChatId();
-
-
         long userId = update.getMessage().getFrom().getId();
+        String username = update.getMessage().getFrom().getUserName();
+        String firstname = update.getMessage().getFrom().getFirstName();
+        String userMessage = update.getMessage().getText();
 
         if (userMessage.equals("/start")) {
-            sendMessage(chatId, chatBot.getGreeting());
+            sendMessage(chatId, chatBot.processGreeting(userId, username, firstname));
             return;
         }
 
-
-        String botResponse = chatBot.questionInput(userId, userMessage);
+        String botResponse = chatBot.processMessage(userId, username, firstname, userMessage);
         sendMessage(chatId, botResponse);
     }
 

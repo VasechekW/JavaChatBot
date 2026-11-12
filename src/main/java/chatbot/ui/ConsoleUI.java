@@ -12,7 +12,7 @@ public class ConsoleUI {
         ChatBot bot = new ChatBot(dataBaseBot);
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print(bot.getGreeting());
+        System.out.print(bot.processGreeting());
 
         while (true){
             System.out.print("ВЫ: ");
@@ -21,7 +21,7 @@ public class ConsoleUI {
 
             String userInput = scanner.nextLine();
 
-            String botResponse = bot.questionInput(userInput);
+            String botResponse = bot.processMessage(userInput);
             System.out.println("Бот: " + botResponse);
         }
     }
