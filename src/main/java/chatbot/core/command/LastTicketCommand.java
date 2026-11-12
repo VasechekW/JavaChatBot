@@ -9,8 +9,8 @@ public class LastTicketCommand implements BotCommand {
     @Override
     public String execute(BotContext context, long userId, String argument) {
         Document lastSearchLog = MongoDB.logs()
-                .find(new Document("userId", userId).append("stateBefore", "WAITING_FOR_DATE"))
-                .sort(new Document("timestamp", -1))
+                .find(new Document("userId", userId).append("state", "WAITING_FOR_DATE"))
+                .sort(new Document("time", -1))
                 .first();
 
         if (lastSearchLog == null) {

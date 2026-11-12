@@ -27,7 +27,7 @@ public class ChatBot {
         String res = questionInput(userId, input);
 
         Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
-                .append("input", input).append("response", res).append("stateBefore", state).append("time", new Date());
+                .append("input", input).append("response", res).append("state", state).append("time", new Date());
         MongoDB.saveLog(logDoc);
 
         return res;
