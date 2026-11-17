@@ -9,10 +9,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final ChatBot chatBot;
     private final String botUsername;
 
-    public TelegramBot(String botToken, String botUsername) {
+    public TelegramBot(String botToken, String botUsername, MongoDB db) {
         super(botToken);
         this.botUsername = botUsername;
-        this.chatBot = new ChatBot(new DataBaseBot());
+        this.chatBot = new ChatBot(new DataBaseBot(db), db);
     }
 
     private void sendMessage(long chatId, String text) {
@@ -30,19 +30,18 @@ public class TelegramBot extends TelegramLongPollingBot {
             return;
         }
 
-        String userMessage = update.getMessage().getText();
         long chatId = update.getMessage().getChatId();
-
-
         long userId = update.getMessage().getFrom().getId();
+        String username = update.getMessage().getFrom().getUserName();
+        String firstname = update.getMessage().getFrom().getFirstName();
+        String userMessage = update.getMessage().getText();
 
         if (userMessage.equals("/start")) {
-            sendMessage(chatId, chatBot.getGreeting());
+            sendMessage(chatId, chatBot.processGreeting(userId, username, firstname));
             return;
         }
 
-
-        String botResponse = chatBot.questionInput(userId, userMessage);
+        String botResponse = chatBot.processMessage(userId, username, firstname, userMessage);
         sendMessage(chatId, botResponse);
     }
 

@@ -1,5 +1,7 @@
 package chatbot.ui;
 
+import chatbot.core.DataBaseBot;
+import chatbot.core.MongoDB;
 import chatbot.core.TelegramBot;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -12,13 +14,32 @@ public class TelegramLauncher {
         String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
         String botUsername = dotenv.get("TELEGRAM_BOT_USERNAME");
 
+        String mode = args[0];
+
+        String uri = "null";
+        if (mode.equals("local")){
+            uri = dotenv.get("MONGODB_LOCAL_PATH");
+        }
+        else if (mode.equals("cloud")){
+            uri = dotenv.get("MONGODB_URI");
+        }
+
+        if (uri == null || uri.isEmpty()){
+            System.err.println("Не введен URI");
+            return;
+        }
+
+        MongoDB db = new MongoDB(uri);
+
+        DataBaseBot dataBaseBot = new DataBaseBot(db);
+
         if (botToken == null || botUsername == null) {
             System.err.println("Не заданы параметры в .env");
             return;
         }
 
         TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
-        api.registerBot(new TelegramBot(botToken, botUsername));
+        api.registerBot(new TelegramBot(botToken, botUsername, db));
         System.out.println("Бот запущен: @" + botUsername);
     }
 }
