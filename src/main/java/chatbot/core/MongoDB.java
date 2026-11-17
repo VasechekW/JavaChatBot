@@ -5,44 +5,44 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import io.github.cdimascio.dotenv.Dotenv;
+
+import java.util.Date;
 
 public class MongoDB {
-    static Dotenv dotenv = Dotenv.load();
-    static String localToken = dotenv.get("MONGODB_LOCAL");
-    static String mongoURI = dotenv.get("MONGODB_URI");
+    private final MongoDatabase db;
 
-    //Локально
-    private static final MongoClient localClient = MongoClients.create(localToken);
-    private static final MongoDatabase localDB = localClient.getDatabase("chatbot");
-
-    public static MongoCollection<Document> logs(){
-        return localDB.getCollection("logs");
+    public MongoDB(String uri){
+        MongoClient client = MongoClients.create(uri);
+        this.db = client.getDatabase("chatbot");
     }
 
-    public static MongoCollection<Document> cities(){
-        return localDB.getCollection("cities");
+    public MongoCollection<Document> cities(){
+        return db.getCollection("cities");
     }
 
-    //В облаке
-    private static final MongoClient cloudClient = MongoClients.create(mongoURI);
-    private static final MongoDatabase cloudDb = cloudClient.getDatabase("chatbot");
-
-    public static MongoCollection<Document> cloudLogs() {
-        return cloudDb.getCollection("logs");
+    public MongoCollection<Document> logs(){
+        return db.getCollection("logs");
     }
 
-    public static void saveLog(Document logDoc) {
+    public void saveProcessMessage(long userId, String username, String firstname, String input, String res, String state){
+        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
+                .append("input", input).append("response", res).append("state", state).append("time", new Date());
+
         try {
             logs().insertOne(logDoc);
         } catch (Exception e) {
-            System.err.println("Ошибка записи в локальную БД: " + e.getMessage());
+            System.err.println("Ошибка записи логов: " + e.getMessage());
         }
+    }
+
+    public void saveProcessGreeting(long userId, String username, String firstname, String greet){
+        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
+                .append("input", "/start").append("response", greet).append("state", "IDLE").append("time", new Date());
 
         try {
-            cloudLogs().insertOne(logDoc);
+            logs().insertOne(logDoc);
         } catch (Exception e) {
-            System.err.println("Ошибка записи в облако Atlas: " + e.getMessage());
+            System.err.println("Ошибка записи логов: " + e.getMessage());
         }
     }
 }

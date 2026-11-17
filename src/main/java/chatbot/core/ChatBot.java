@@ -1,17 +1,17 @@
 package chatbot.core;
 
 import chatbot.core.command.BotCommand;
-import org.bson.Document;
-import java.util.Date;
 
 public class ChatBot {
 
     private final DataBaseBot dataBaseBot;
     private final BotContext context;
+    private final MongoDB mongoDB;
 
-    public ChatBot(DataBaseBot dataBaseBot){
+    public ChatBot(DataBaseBot dataBaseBot, MongoDB mongoDB){
         this.dataBaseBot = dataBaseBot;
         this.context = new BotContext();
+        this.mongoDB = mongoDB;
     }
 
     public String processGreeting() {
@@ -26,9 +26,7 @@ public class ChatBot {
         String state = context.getState(userId).toString();
         String res = questionInput(userId, input);
 
-        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
-                .append("input", input).append("response", res).append("state", state).append("time", new Date());
-        MongoDB.saveLog(logDoc);
+        mongoDB.saveProcessMessage(userId, username, firstname, input, res, state);
 
         return res;
     }
@@ -36,9 +34,7 @@ public class ChatBot {
     public String processGreeting(long userId, String username, String firstname){
         String greet = getGreeting();
 
-        Document logDoc = new Document("userId", userId).append("username", username).append("firstName", firstname)
-                .append("input", "/start").append("response", greet).append("state", "IDLE").append("time", new Date());
-        MongoDB.saveLog(logDoc);
+        mongoDB.saveProcessGreeting(userId, username, firstname, greet);
 
         return greet;
     }
