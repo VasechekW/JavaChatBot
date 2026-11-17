@@ -6,9 +6,15 @@ import org.bson.Document;
 
 public class LastTicketCommand implements BotCommand {
 
+    private final MongoDB db;
+
+    public LastTicketCommand(MongoDB db){
+        this.db = db;
+    }
+
     @Override
     public String execute(BotContext context, long userId, String argument) {
-        Document lastSearchLog = MongoDB.logs()
+        Document lastSearchLog = db.logs()
                 .find(new Document("userId", userId).append("state", "WAITING_FOR_DATE"))
                 .sort(new Document("time", -1))
                 .first();

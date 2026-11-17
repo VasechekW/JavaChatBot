@@ -5,9 +5,13 @@ import chatbot.core.MongoDB;
 import chatbot.core.AviasalesTickets.UserState;
 import org.bson.Document;
 
-import java.util.Locale;
-
 public class CityInfoCommand implements BotCommand {
+
+    private final MongoDB db;
+
+    public CityInfoCommand(MongoDB db){
+        this.db = db;
+    }
 
     @Override
     public String execute(BotContext context, long userId, String argument) {
@@ -24,7 +28,7 @@ public class CityInfoCommand implements BotCommand {
     public String processDialog(BotContext context, long userId, String text) {
         String cityName = text.trim().toLowerCase();
 
-        Document cityDoc = MongoDB.cities().find(new Document("name", cityName)).first();
+        Document cityDoc = db.cities().find(new Document("name", cityName)).first();
 
         context.setState(userId, UserState.IDLE);
 
