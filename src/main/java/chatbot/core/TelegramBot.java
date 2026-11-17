@@ -9,10 +9,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final ChatBot chatBot;
     private final String botUsername;
 
-    public TelegramBot(String botToken, String botUsername) {
+    public TelegramBot(String botToken, String botUsername, MongoDB db) {
         super(botToken);
         this.botUsername = botUsername;
-        this.chatBot = new ChatBot(new DataBaseBot());
+        this.chatBot = new ChatBot(new DataBaseBot(db), db);
     }
 
     private void sendMessage(long chatId, String text) {
